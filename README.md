@@ -1,23 +1,58 @@
 # Burrows Wheeler transform
-### intro/description ###
+## intro/description
 my (originally small) school project using the Burrows Wheeler Transform and a client-server connection, 
 the og "project" was 3 files but I started adding tons of new things because I can't do something simple for once.
-I'll probably add something else later but idk
+I'll probably add something else later but idk  
+
+## how to use
+first download zip file and extract it,
+then you can run it in varous way:
+
+please note that each command must be typed inside the "\trasformataBurrowsWheeler" folder
+### 1. Manual Method
+Run server.py and app.py manually IN THIS ORDER, you can use your IDE or with CMD:
+
+to run server.py type the following command 
+
+    python server.py
+
+to run app.py type one of the following command 
+
+    python app.py
+or
+
+    flask run 
+
+Once both files are running, open a web browser and go to either
+http://localhost:5000
+or
+http://127.0.0.1:5000
+
+### 2. Command-Line Method
+Use the command prompt (CMD) to run a single command.
+
+    run.bat
+This method allows two optional flags to customize the behavior of the program:
+
+    -d or --debug
+    -p xxxx or --port xxxx
+("xxxx" must be substitued by a valid port number eg. 33333)
+
+After running the command, the program will start automatically.
+
+### 3. Batch File Method
+Simply double-click the start.bat file.
+
+This will automatically start everything needed for the program to run without additional steps.
 
 
 
-
-
-
-
-
-this is the section where is explained how does the Burrows Wheeler Transform works and how to reverse it
-
-### REGULAR BURROWS WHEELER TRANSFORM ###
+## REGULAR BURROWS WHEELER TRANSFORM 
 
 suppose that we need transform the string "banana"
 
 STEP 1 -- add the end marker ('$' by convention) 
+
     "banana" --> "banana$"
 
 STEP 2 -- rotate the string one character to the left until we return to the original string
@@ -56,7 +91,7 @@ STEP 4 -- take the last character from each row
 
 
 
-### REVERSED BURROWS WHEELER TRANSFORM ###
+## REVERSED BURROWS WHEELER TRANSFORM
 
 suppose that we need to find the original word from the string "annb$aa"
 
