@@ -1,50 +1,49 @@
-import socket, bwt, json, keyboard, threading, sys
-#TCP
+import socket, bwt, json, keyboard, threading
 
+# define host address and port (all local)
 HOST = "127.0.0.1"
-PORT = 1984 # letteralmente 1984
-shutdown_flag = False
+PORT = 1984 # literaly 1984 
+shutdown_flag = False #flag to check whether or not to shut down the server 
 
+# function to shut down the server if the user presses ctrl+z (might change later)
 def key_listener():
     global shutdown_flag
     print("Press CTRL+Z to stop the server safely.")
     keyboard.wait("ctrl+z")
     shutdown_flag = True
 
-# Start keyboard listener in background
+# Start keyboard listener in background on a separate thread to permit the server to run
 threading.Thread(target=key_listener, daemon=True).start()
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST,PORT)) #assegno al socket l'ip e la porta
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # create the socket 
+    s.bind((HOST,PORT)) #assign to the socket the ip address and the door
     
-    s.listen() #in ascolto per connessioni
+    # socket listenting for connections and prints some info
+    s.listen()
     print(f"Server listening {HOST}:{PORT}")
 
     while not shutdown_flag:
 
-        conn, addr = s.accept() # conn oggetto che rasppresenta la connessione, addr è l'indirizzo del client che si connette
-        # conn è una risorsa, posso aprirla, chiuderla e gestirla
-        print(f"connesso con {addr}")
+        conn, addr = s.accept() # socket accept the request for a connection and prints some info
+        print(f"connected with {addr}")
         with conn:
             
             while not shutdown_flag:
-                data = conn.recv(1024) #riceve max 1024 Byte
-                #se data è vuoto il client ha interrotto la connessione inaspettatamente
-                if not data:
+                data = conn.recv(1024) # allows only a max of 1024 Byte at a time
+                if not data: # closes the connection if no data is being exchanged
                     break
 
-                input_json = json.loads(data.decode()) #traduce e decodifica il messaggio ricevuto
-                isDeTRSF = input_json["isDeTRSF"]
-                input_str = input_json["userInput"]
-                #tip -> messaggio sarà convertito in trasformata
-
+                input_json = json.loads(data.decode()) #decodes the data into a json bc i needed to transfer more than a string 
+                isDeTRSF = input_json["isDeTRSF"] #flag to check whether the user wants to use btw() or reverse_btw()
+                input_str = input_json["input_str"]
+                
+                # calls btw() or reverse_btw() based on the flag
                 if isDeTRSF :
                     output_str = bwt.reverse_bwt(input_str)
                 else:
                     output_str = bwt.bwt(input_str)
 
-                conn.sendall(output_str.encode()) # converte il messaggio in byte per inviarlo tramite socket
-
+                conn.sendall(output_str.encode()) # sends the result of the transform to the client
 
 print("Server stopped")
-sys.exit(0)

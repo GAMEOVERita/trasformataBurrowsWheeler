@@ -1,12 +1,19 @@
-# trasformataBurrowsWheeler
-my "web app" for a school project using the Burrows Wheeler Transform and a client-server connection
+# Burrows Wheeler transform
+### intro/description ###
+my (originally small) school project using the Burrows Wheeler Transform and a client-server connection, 
+the og "project" was 3 files but I started adding tons of new things because I can't do something simple for once.
+I'll probably add something else later but idk
+
+
+
+
 
 
 
 
 this is the section where is explained how does the Burrows Wheeler Transform works and how to reverse it
 
-### REGULAR BURROWS WHEELER TRANSFORM ####
+### REGULAR BURROWS WHEELER TRANSFORM ###
 
 suppose that we need transform the string "banana"
 
@@ -16,9 +23,12 @@ STEP 1 -- add the end marker ('$' by convention)
 STEP 2 -- rotate the string one character to the left until we return to the original string
 
 starting with:
+
     "banana$"
+
 
 here are all (7 including the original) possible rotations for our string: 
+
     "banana$"
     "anana$b"
     "nana$ba"
@@ -26,8 +36,10 @@ here are all (7 including the original) possible rotations for our string:
     "na$bana"
     "a$banan"
     "$banana"
+
 
 STEP 3 -- sort the list of strings alphabetically (using the ASCII table):
+
     "$banana"
     "a$banan"
     "ana$ban"
@@ -36,20 +48,24 @@ STEP 3 -- sort the list of strings alphabetically (using the ASCII table):
     "na$bana"
     "nana$ba"
 
+
 STEP 4 -- take the last character from each row
+
     "annb$aa"
 
 
 
 
-### REVERSED BURROWS WHEELER TRANSFORM ####
+### REVERSED BURROWS WHEELER TRANSFORM ###
 
 suppose that we need to find the original word from the string "annb$aa"
 
-STEP 1 -- append to the end of each string of the list a character of our string
+STEP 1 -- append to the end of each string of the list a character of our string:
+
     ["a", "n", "n", "b", "$", "a", "a"]
 
 STEP 2 -- sort the list of strings alphabetically (using the ASCII table):
+
     ["$", "a", "a", "a", "b", "n", "n"]
 
 STEP 3 -- repeat until each string in the list is as long as the one we started with, the one with '$' as the last character will be the original:

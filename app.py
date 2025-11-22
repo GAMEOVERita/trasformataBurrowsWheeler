@@ -3,9 +3,9 @@ import client
 
 app = Flask(__name__) # this is how Flask recognizes this file as the main file of the program
 
-# come collegare la pagina html a flask
+# flask goated, this is how simple it is to create a webpage with python
+# sets the route for the function "index()" at the default page of the website and accept the use of both "GET" and "POST"
 @app.route('/', methods=["GET", "POST"])
-#@app.route('/')
 def index(output: str=""):
     if request.method == "POST":
 
@@ -22,31 +22,29 @@ def index(output: str=""):
 
         # final code
         # easier to read and leaner
-        isDeTRSF = (action == "detransform")
+        isDeTRSF = (action == "detransform") #flag to check whether the user wants to use btw() or reverse_btw()
         input_str = request.form.get("input_str")
         if input_str != "" and input_str != None:
             output = client.clientConnection(isDeTRSF, input_str)
 
-    return render_template('index.html', output=output)
+    return render_template("index.html", output=output) # this renders the page "index.html" and passes the var "output"
 
 # flask run --debug
-if __name__ == '__main__':
+# python app.py
+if __name__ == "__main__":
     app.run(debug=True)
 
 
 
 
 
-
+# here are some of the resorces i used 
 """
 # flask official docs
 https://flask.palletsprojects.com/en/stable/quickstart/
 
 # explains how to add your customs cmd arguments to python --- NOT YET IMPLEMENTED
 https://www.geeksforgeeks.org/python/command-line-arguments-in-python/
-
-# python official docs - explains how to use multiprocessing --- NOT YET IMPLEMENTED
-https://docs.python.org/3/library/multiprocessing.html
 
 # flask tutorials on yt
 https://www.youtube.com/playlist?list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX

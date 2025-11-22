@@ -1,4 +1,5 @@
 # Sorting with QuickSort 
+# translated: a page of some wizard's spell book, don't ask me how it works, i couldn't be bothered to look it up 
 def partition(arr:list, low:int, high:int):
     pivot = arr[high]
     i = low - 1

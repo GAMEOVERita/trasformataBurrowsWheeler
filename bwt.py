@@ -24,7 +24,7 @@ def reverse_bwt(input_str:str):
     table = [""] * size
 
     # adds the character and sort the table until it's complete
-    for _i in range(size):
+    for _i in range(size): # i discovered that if you put '_' before a var vscode will recognize said variable as unused and won't give this annoying warning: Variable "i" is not accessed
         table = [input_str[j] + table[j] for j in range(size)]
         quickSort.qSort(table, 0, len(table) - 1)
         
@@ -32,9 +32,4 @@ def reverse_bwt(input_str:str):
     for elem in table:
         if elem[-1] == "$":
             return elem[:-1]
-    return ""
-
-
-if __name__ == "__main__":
-    print(bwt("banana"))
-    print(reverse_bwt(bwt("banana")))
+    return "" # this will become useless, if i decide to implement some form of input checking 
