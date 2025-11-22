@@ -1,7 +1,7 @@
-import socket, json
+import socket, json, config
 
-HOST = "127.0.0.1" # this is the ip address of the server (localhost because this is running locally)
-PORT = 1984 # the port on which the server is running
+HOST = config.HOST
+PORT = config.PORT
 
 def clientConnection(isDeTRSF : bool, input_str : str):
     # creates the json to transfer the needed data

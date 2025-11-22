@@ -1,15 +1,14 @@
-import socket, bwt, json, keyboard, threading
+import socket, bwt, json, keyboard, threading, config
 
-# define host address and port (all local)
-HOST = "127.0.0.1"
-PORT = 1984 # literaly 1984 
+HOST = config.HOST
+PORT = config.PORT
 shutdown_flag = False #flag to check whether or not to shut down the server 
 
 # function to shut down the server if the user presses ctrl+z (might change later)
 def key_listener():
     global shutdown_flag
-    print("Press CTRL+Z to stop the server safely.")
-    keyboard.wait("ctrl+z")
+    print("Press Q to stop the server safely.")
+    keyboard.wait("Q")
     shutdown_flag = True
 
 # Start keyboard listener in background on a separate thread to permit the server to run
@@ -22,11 +21,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # create the socket
     # socket listenting for connections and prints some info
     s.listen()
     print(f"Server listening {HOST}:{PORT}")
+    s.settimeout(0.5) # if no one connects in 0.5 second launches an exception
 
     while not shutdown_flag:
+        # try exept with timeout to avoid the code being stuck on s.accept()
+        try:
+            conn, addr = s.accept()
+            print(f"connected with {addr}") # socket accept the request for a connection and prints some info
+        except socket.timeout:
+            continue
 
-        conn, addr = s.accept() # socket accept the request for a connection and prints some info
-        print(f"connected with {addr}")
+
         with conn:
             
             while not shutdown_flag:

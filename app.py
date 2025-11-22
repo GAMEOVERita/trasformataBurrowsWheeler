@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import client
+import client, config
 
 app = Flask(__name__) # this is how Flask recognizes this file as the main file of the program
 
@@ -32,7 +32,7 @@ def index(output: str=""):
 # flask run --debug
 # python app.py
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=config.debug)
 
 
 
