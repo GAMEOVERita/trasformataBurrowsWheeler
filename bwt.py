@@ -1,75 +1,40 @@
-# abbiamo una stringa "banana"
+import quickSort
+def bwt(input_str:str):
+    # STEP 1 
+    # append an end marker ('$' by convention)
+    input_str += '$'
 
-# 1 aggiungiamo '$' alla fine 
-# "banana" --> "banana$"
+    # STEP 2 
+    # build all rotations of the original string
+    rotations = [input_str[i:] + input_str[:i] for i in range(len(input_str))]
 
-# 2 ruotiamo tutti i caratteri a sinistra di 1 fino a tornare al punto di partenza
-# "banana$"
-# "banana$" --> "anana$b"
-# "anana$b" --> "nana$ba"
-# "nana$ba" --> "ana$ban"
-# "ana$ban" --> "na$bana"
-# "na$bana" --> "a$banan"
-# "a$banan" --> "$banana"
+    # STEP 3 
+    # sort all rotation in alphabetical order 
+    quickSort.qSort(rotations, 0, len(rotations) - 1)
 
-# 3 riordiniamo tuttle stringhe in ordine della tabella ascii
-# "$banana"
-# "a$banan"
-# "ana$ban"
-# "anana$b"
-# "banana$"
-# "na$bana"
-# "nana$ba"
+    # STEP 4 
+    # put the last character of each rotation in the last column
+    result = ''.join(row[-1] for row in rotations)
+    return result
 
-# 4 prendo l'ultima colonna delle stringhe ordinate dall'alto verso il basso
-# "annb$aa"
+#reverse BWT
+def reverse_bwt(input_str:str):
+    # assign size variable and create a empty table to store all strings while rebuilding the original
+    size = len(input_str)
+    table = [""] * size
 
-# Sorting fatto con il QuickSort 
-def partition(arr, low, high):
-    pivot = arr[high]
-    i = low - 1
-    for j in range(low, high):
-        if arr[j] <= pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
-
-def quick_sort(arr, low, high):
-    if low < high:
-        p = partition(arr, low, high)
-        quick_sort(arr, low, p - 1)
-        quick_sort(arr, p + 1, high)
-
-
-def trasformata(input:str):
-    # STEP 1
-    input += '$'
-    # dichiarazione
-    listaSuCuiStoLavorando = [None] * len(input)
-    strTrasformata = ""
-    # STEP 2
-    listaSuCuiStoLavorando[0] = input
-    for x in range(1,len(input)):
-        listaSuCuiStoLavorando[x] = listaSuCuiStoLavorando[x-1][1:len(input)] + listaSuCuiStoLavorando[x-1][0]
-    # STEP 3
-    quick_sort(listaSuCuiStoLavorando, 0, len(listaSuCuiStoLavorando) - 1)
-    # STEP 4
-    for x in listaSuCuiStoLavorando:
-        strTrasformata += x[-1]
-    return strTrasformata
-
-
-def deTrasformata(input:str):
-    listaSuCuiStoLavorando = [""] * len(input)
-    strDeTrasformata = ""
-    for i in range(len(input)):
-        for j in range(len(input)):
-            listaSuCuiStoLavorando[j] = input[j] + listaSuCuiStoLavorando[j]
-        quick_sort(listaSuCuiStoLavorando, 0, len(listaSuCuiStoLavorando) - 1)
+    # adds the character and sort the table until it's complete
+    for _i in range(size):
+        table = [input_str[j] + table[j] for j in range(size)]
+        quickSort.qSort(table, 0, len(table) - 1)
         
-    for x in listaSuCuiStoLavorando:
-        if x[0] == "$":
-            strDeTrasformata = x
-    return strDeTrasformata
+    # finds which element of the table ends with '$' and returns it without '$'
+    for elem in table:
+        if elem[-1] == "$":
+            return elem[:-1]
+    return ""
 
+
+if __name__ == "__main__":
+    print(bwt("banana"))
+    print(reverse_bwt(bwt("banana")))

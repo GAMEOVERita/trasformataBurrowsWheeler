@@ -1,14 +1,20 @@
-import socket
+import socket, json
 
-HOST = "127.0.0.1" #uguale al server
-PORT = 1984 
+HOST = "127.0.0.1" # this is the ip address of the server (localhost because this is running locally)
+PORT = 1984 # the port on which the server is running
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect( (HOST, PORT) )# connessione al server
+def clientConnection(isDeTRSF : bool, userInput : str):
+    input_json = {
+        "isDeTRSF": isDeTRSF,
+        "userInput": userInput
+    }
 
-    #ilclient scrive al server
-    s.sendall(input("scrivi la stringa che vuoi trasformare: ").encode())
-    
-    data = s.recv(1024) #ricevo eventuale posta dal server
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect( (HOST, PORT) )# connessione al server
 
-    print (f"Stringa trasformata: {data.decode()}")
+        #il client manda al server il file json
+        s.sendall(json.dumps(input_json).encode())
+        
+        data = s.recv(1024) #ricevo eventuale posta dal server
+
+    return data.decode()
