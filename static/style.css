@@ -1,0 +1,83 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#button_row {
+    display: flex;
+    gap: 10%;
+    width: 75%;
+    justify-content: center;
+}
+.button {
+    background-color: coral;
+    border: none;
+    color: white;
+    flex: 1;
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.4s;
+}
+.button:hover {
+    transform: scale(1.10)
+}
+
+#title {
+    color:coral;
+    text-align: center;
+}
+
+#output_box{
+    display: flex;
+    gap: 10%;
+    width: 75%;
+    align-items: center;
+    justify-content: space-between;
+}
+#output {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    color: coral;
+}
+#paste_button {
+    background-color: #f2f2f2;
+    background-image: url("./images/copy.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.4s;
+    
+}
+#paste_button:hover {
+    transform: scale(1.10)
+}
+
+#input {
+    width: 75%;
+    padding: 12px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#form {
+    margin: auto;
+    max-width: 600px;
+    min-height: 250px;
+    border: 2px solid coral;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-evenly;
+}

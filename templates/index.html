@@ -4,22 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BurrowsWheelerTransform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
 <body>
+
+    <h1 id="title">Burrows Wheeler Transform</h1>
     
-    <form accept="" method="post">
-        <input type="text" name="input_str">
-        <p>
-            <input type="submit" name="action" value="transform">
-            banana --> annb$aa
-        </p>
-        <p>
-            <input type="submit" name="action" value="detransform">
-            annb$aa --> banana 
-        </p>
-        <h1>
-            {{output}} <!-- this is how the var "output" is passed to the page -->
-        </h1>
+    <form accept="" method="post" id="form">
+        <input type="text" name="input_str" placeholder="string to transform" id="input">
+        <div id="button_row">
+            <input type="submit" name="action" value="transform" class="button">
+            <input type="submit" name="action" value="detransform" class="button">
+        </div>
+        {% if output != "" and output != None: %}
+        <div id="output_box">
+            <input type="text" value={{output}} id="output" readonly><!-- this is how the var "output" is passed to the page -->
+            <button id="paste_button" onclick="copy_output()"></button>
+        </div>
+        <script>
+            function copy_output() {
+                // Get the text field
+                var copyText = document.getElementById("output");
+
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.value);
+
+                // Alert the copied text
+                alert("Copied the text: " + copyText.value);
+            }
+        </script>
+        {% endif %}
     </form>
-</body>
+    </body>
 </html>
+
+<!-- REMEMBER TO HANDLE NO SERVER EXCEPTION -->
