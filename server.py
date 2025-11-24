@@ -7,7 +7,7 @@ shutdown_flag = False #flag to check whether or not to shut down the server
 # function to shut down the server if the user presses ctrl+z (might change later)
 def key_listener():
     global shutdown_flag
-    print("Press Q to stop the server safely.")
+    print("Press Q to stop the server")
     keyboard.wait("Q")
     shutdown_flag = True
 

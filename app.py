@@ -1,11 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 import client, config
+
 
 app = Flask(__name__) # this is how Flask recognizes this file as the main file of the program
 
 # flask goated, this is how simple it is to create a webpage with python
 # sets the route for the function "index()" at the default page of the website and accept the use of both "GET" and "POST"
-@app.route('/', methods=["GET", "POST"])
+
+@app.route('/transform', methods=["GET"])
+def test():
+
+    transformata = client.clientConnection(False, "banana")
+
+
+    return jsonify({"bwt":transformata})
+
+
+@app.route('/', methods=["GET", "POST"]) #ENDPOINT
 def index(output: str=""):
     if request.method == "POST":
 
