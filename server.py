@@ -4,7 +4,7 @@ HOST = config.HOST
 PORT = config.PORT
 shutdown_flag = False #flag to check whether or not to shut down the server 
 
-# function to shut down the server if the user presses ctrl+z (might change later)
+# function to shut down the server if the user presses 'Q' (might change later)
 def key_listener():
     global shutdown_flag
     print("Press Q to stop the server safely.")
@@ -50,5 +50,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # create the socket
                     output_str = bwt.bwt(input_str)
 
                 conn.sendall(output_str.encode()) # sends the result of the transform to the client
+
 
 print("Server stopped")
