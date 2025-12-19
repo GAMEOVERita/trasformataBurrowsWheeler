@@ -33,22 +33,3 @@ def index(output: str=""):
 # python app.py
 if __name__ == "__main__":
     app.run(debug=config.debug)
-
-
-
-
-
-# here are some of the resorces i used 
-"""
-# flask official docs
-https://flask.palletsprojects.com/en/stable/quickstart/
-
-# explains how to add your customs cmd arguments to python --- NOT YET IMPLEMENTED
-https://www.geeksforgeeks.org/python/command-line-arguments-in-python/
-
-# flask tutorials on yt
-https://www.youtube.com/playlist?list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX
-
-# explains how to write shorter for loops
-https://blog.teamtreehouse.com/python-single-line-loops
-"""
