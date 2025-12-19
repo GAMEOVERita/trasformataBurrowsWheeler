@@ -17,6 +17,7 @@ def clientConnection(isDeTRSF : bool, input_str : str):
         #the client sends to the server the encoded json
         s.sendall(json.dumps(input_json).encode())
         
-        data = s.recv(1024) #recieves the server response and returns it decodified
+        data = s.recv(1024) #receives the server response and returns it decodified
+
 
     return data.decode()
