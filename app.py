@@ -11,17 +11,6 @@ def index(output: str=""):
 
         action = request.form.get("action")
 
-        # my original code 
-        # i didn't really like it because it was bulky
-        """
-        if action == "transform": 
-            isDeTRSF, input_str = False, request.form.get("input_str").encode() 
-        elif action == "detransform": 
-            isDeTRSF, input_str = True, request.form.get("input_str").encode()
-        """
-
-        # final code
-        # easier to read and leaner
         isDeTRSF = (action == "detransform") #flag to check whether the user wants to use btw() or reverse_btw()
         input_str = request.form.get("input_str")
         if input_str != "" and input_str != None:
@@ -29,7 +18,6 @@ def index(output: str=""):
 
     return render_template("index.html", output=output) # this renders the page "index.html" and passes the var "output"
 
-# flask run --debug
-# python app.py
+
 if __name__ == "__main__":
     app.run(debug=config.debug)
